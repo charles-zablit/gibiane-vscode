@@ -11,8 +11,8 @@ Cette extension pour [Visual Studio Code](https://code.visualstudio.com/) ajoute
 ## Installation
 
  1. Installer Visual Studio Code pour votre platforme depuis [ce lien](https://code.visualstudio.com/).
- 2. Une fois dans l'IDE, cliquer sur l'icon ci-dessous (en rouge).
+ 2. Une fois dans l'IDE, cliquer sur l'icon ci-dessous (1).
  ![Installation](https://raw.githubusercontent.com/charles-zablit/gibiane-vscode/master/images/installation.png)
- 3. Taper "Gibiane" dans la barre de recherche et selectionner le premier résultat.
- 4. Cliquer sur le boutton "Installer".
+ 3. Taper "Gibiane" dans la barre de recherche (2) et selectionner le premier résultat (3).
+ 4. Cliquer sur le boutton "Installer" (4).
  5. Vous pouvez maintenant ouvrir votre fichier `.dgibi`.
