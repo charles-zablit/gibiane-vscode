@@ -6,8 +6,13 @@
 
 ## Description
 
-Cette extension pour [Visual Studio Code](https://code.visualstudio.com/) ajoute la fonctionnalité de _syntax highlighting_ pour le language Gibiane utilisé notamment par le logiciel [Cast3M](http://www-cast3m.cea.fr/).
-L'extension ajoute egalement la suggestion des noms de variables déjà déclarées, comme sur la photo ci-dessous.
+Cette extension pour [Visual Studio Code](https://code.visualstudio.com/) ajoute plusieurs fonctionnalités pour le language Gibiane, utilisé notamment par le logiciel [Cast3M](http://www-cast3m.cea.fr/).
+
+### Fonctionnalités
+
+ - _Syntax highlighting_ (cf image ci-dessus).
+ - _Go-To-Defintion_, un ctrl+click sur une variable ramène à sa définition.
+ - _Autocompletion_, la suggestion des noms de variables déjà déclarées, comme sur la photo ci-dessous.
 
 ![Example AutoCompletion](https://raw.githubusercontent.com/charles-zablit/gibiane-vscode/master/images/example-2.png)
 

@@ -5,6 +5,7 @@
 ### Added
 
  - Ajout de l'autocompletion pour les variables.
+ - Ajout du Go-to-definition.
 
 ## [0.0.1]
 

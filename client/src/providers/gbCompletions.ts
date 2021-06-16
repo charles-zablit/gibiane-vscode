@@ -1,8 +1,5 @@
 import * as vscode from "vscode";
-import {
-	Completion,
-	VariableCompletion
-} from "./gbCompletionsKind";
+import { Completion } from "./gbCompletionsKind";
 
 export class FileCompletions {
   completions: Map<string, Completion>;
@@ -31,7 +28,8 @@ export class FileCompletions {
 }
 
 export class CompletionRepository
-  implements vscode.CompletionItemProvider, vscode.Disposable {
+  implements vscode.CompletionItemProvider, vscode.Disposable
+{
   public completions: Map<string, FileCompletions>;
   private globalState: vscode.Memento;
 
@@ -45,10 +43,13 @@ export class CompletionRepository
     position: vscode.Position,
     token: vscode.CancellationToken
   ): vscode.CompletionList {
-		let all_completions_list: vscode.CompletionList = new vscode.CompletionList();
-		all_completions_list.items = this.completions.get(document.uri.toString()).get_completions();
-		return all_completions_list;
-	}
+    let all_completions_list: vscode.CompletionList =
+      new vscode.CompletionList();
+    all_completions_list.items = this.completions
+      .get(document.uri.toString())
+      .get_completions();
+    return all_completions_list;
+  }
 
-	public dispose() {}
+  public dispose() {}
 }

@@ -4,10 +4,10 @@ import {
   languages,
   window,
   WorkspaceFolder,
-	DocumentFilter
+  DocumentFilter,
 } from "vscode";
 
-import {Providers} from "./providers/gbProviders";
+import { Providers } from "./providers/gbProviders";
 
 const GB_MODE: DocumentFilter = {
   language: "gibiane",
@@ -15,14 +15,17 @@ const GB_MODE: DocumentFilter = {
 };
 
 export function activate(context: ExtensionContext) {
-	const providers = new Providers(context.globalState);
-	context.subscriptions.push(
+  const providers = new Providers(context.globalState);
+  context.subscriptions.push(
     languages.registerCompletionItemProvider(
       GB_MODE,
       providers.completionsProvider
     )
   );
-	Workspace.onDidChangeTextDocument(
+  context.subscriptions.push(
+    languages.registerDefinitionProvider(GB_MODE, providers.definitions)
+  );
+  Workspace.onDidChangeTextDocument(
     providers.handle_document_change,
     providers,
     context.subscriptions
