@@ -2,9 +2,10 @@
   "name": "gibiane-vscode",
   "displayName": "Gibiane",
   "description": "Gibiane syntax highlighting",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "CharlesZablit",
-	"icon": "icon.png",
+  "main": "client/out/gbIndex",
+  "icon": "icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/charles-zablit/gibiane-vscode.git"
@@ -14,6 +15,9 @@
   },
   "categories": [
     "Programming Languages"
+  ],
+  "activationEvents": [
+    "onLanguage:gibiane"
   ],
   "contributes": {
     "languages": [
@@ -46,6 +50,7 @@
   },
   "scripts": {
     "compile": "tsc -b tsconfig.json",
-    "watch": "tsc -b -w"
+    "watch": "tsc -b -w",
+    "test": "echo \"Error: no test specified\" && exit 0"
   }
 }
