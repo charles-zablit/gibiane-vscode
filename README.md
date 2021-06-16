@@ -2,11 +2,14 @@
 
 ![Version](https://vsmarketplacebadge.apphb.com/version/CharlesZablit.gibiane-vscode.svg) ![Installs](https://vsmarketplacebadge.apphb.com/installs-short/CharlesZablit.gibiane-vscode.svg) ![Last commit](https://img.shields.io/github/last-commit/charles-zablit/gibiane-vscode) ![Open issues](https://img.shields.io/github/issues/charles-zablit/gibiane-vscode) ![Closed issues](https://img.shields.io/github/issues-closed/charles-zablit/gibiane-vscode) ![Size](https://img.shields.io/github/repo-size/charles-zablit/gibiane-vscode) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/charles-zablit/gibiane-vscode/Deploy%20Extension)
 
-![Example](https://raw.githubusercontent.com/charles-zablit/gibiane-vscode/master/images/example.png)
+![Example Syntax](https://raw.githubusercontent.com/charles-zablit/gibiane-vscode/master/images/example-1.png)
 
 ## Description
 
-Cette extension pour [Visual Studio Code](https://code.visualstudio.com/) ajoute la fonctionnalité de syntax highlighting pour le language Gibiane utilisé notamment par le logiciel [Cast3M](http://www-cast3m.cea.fr/).
+Cette extension pour [Visual Studio Code](https://code.visualstudio.com/) ajoute la fonctionnalité de _syntax highlighting_ pour le language Gibiane utilisé notamment par le logiciel [Cast3M](http://www-cast3m.cea.fr/).
+L'extension ajoute egalement la suggestion des noms de variables déjà déclarées, comme sur la photo ci-dessous.
+
+![Example AutoCompletion](https://raw.githubusercontent.com/charles-zablit/gibiane-vscode/master/images/example-2.png)
 
 ## Installation
 
