@@ -4,9 +4,10 @@
   "description": "Gibiane syntax highlighting",
   "version": "0.0.1",
   "publisher": "CharlesZablit",
+	"icon": "icon.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Sarrus1/gibiane-vscode.git"
+    "url": "https://github.com/charles-zablit/gibiane-vscode.git"
   },
   "engines": {
     "vscode": "^1.14.0"
