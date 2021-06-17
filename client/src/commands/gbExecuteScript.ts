@@ -12,7 +12,7 @@ export async function run(args: any) {
   if (scriptCommand === "" || typeof scriptCommand === "undefined") {
     vscode.window
       .showErrorMessage(
-        "Aucune commande n'a été définie pour éxectuer le script.",
+        "Aucune commande n'a été définie pour exécuter le script.",
         "Configuration"
       )
       .then((choice) => {
@@ -47,7 +47,7 @@ export async function run(args: any) {
   }
   terminal.show();
 
-  let command: string = scriptCommand + " " +activeDocumentPath;
+  let command: string = scriptCommand + " " + activeDocumentPath;
   terminal.sendText(command);
   return;
 }

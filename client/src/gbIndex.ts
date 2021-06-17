@@ -24,7 +24,7 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push(
     languages.registerDefinitionProvider(GB_MODE, providers.definitions)
   );
-	context.subscriptions.push(
+  context.subscriptions.push(
     languages.registerHoverProvider(GB_MODE, providers.completionsProvider)
   );
   Workspace.onDidChangeTextDocument(
@@ -43,12 +43,12 @@ export function activate(context: ExtensionContext) {
     context.subscriptions
   );
 
-	for(let document of Workspace.textDocuments){
-		if(path.extname(document.uri.fsPath)==".dgibi"){
-			providers.handle_new_document(document);
-		}
-	}
+  for (let document of Workspace.textDocuments) {
+    if (path.extname(document.uri.fsPath) == ".dgibi") {
+      providers.handle_new_document(document);
+    }
+  }
 
-	//Register the commands
-	registerGBCommands(context);
+  //Register the commands
+  registerGBCommands(context);
 }
