@@ -1,5 +1,11 @@
 ## Notes
 
+## [0.0.3]
+
+### Added
+
+ - Ajout d'une fonctionnalité pour lancer les scripts Gibiane directement depuis VSCode.
+
 ## [0.0.2]
 
 ### Added

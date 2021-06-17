@@ -2,12 +2,10 @@ import {
   ExtensionContext,
   workspace as Workspace,
   languages,
-  window,
-  WorkspaceFolder,
   DocumentFilter,
 } from "vscode";
-
 import { Providers } from "./providers/gbProviders";
+import { registerGBCommands } from "./commands/gbRegisterCommands";
 
 const GB_MODE: DocumentFilter = {
   language: "gibiane",
@@ -40,4 +38,7 @@ export function activate(context: ExtensionContext) {
     providers,
     context.subscriptions
   );
+
+	//Register the commands
+	registerGBCommands(context);
 }
