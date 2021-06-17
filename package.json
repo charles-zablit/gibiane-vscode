@@ -2,7 +2,7 @@
   "name": "gibiane-vscode",
   "displayName": "Gibiane",
   "description": "Gibiane syntax highlighting",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "CharlesZablit",
   "main": "client/out/gbIndex",
   "icon": "icon.png",
@@ -21,42 +21,42 @@
     "onCommand:gibiane-vscode.execScript"
   ],
   "contributes": {
-		"commands": [
+    "commands": [
       {
         "command": "gibiane-vscode.execScript",
         "title": "Executer script Gibiane",
-				"category": "ShortcutMenuBar",
+        "category": "ShortcutMenuBar",
         "icon": {
           "light": "fileicons/images/compile.svg",
           "dark": "fileicons/images/compile.svg"
         }
       }
-		],
-		"menus":{
-			"editor/title": [
-				{
-					"when": "resourceLangId == gibiane && config.gibiane-vscode.afficherBouttonDExecution",
-					"command": "gibiane-vscode.execScript",
-					"group": "navigation@1"
-				}
-			]
-		},
-		"configuration": {
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceLangId == gibiane && config.gibiane-vscode.afficherBouttonDExecution",
+          "command": "gibiane-vscode.execScript",
+          "group": "navigation@1"
+        }
+      ]
+    },
+    "configuration": {
       "type": "object",
       "title": "Configuration de Gibiane pour VSCode",
       "properties": {
         "gibiane-vscode.Commande": {
           "type": "string",
-          "description": "La commande à éxecuter pour lancer le script Gibiane, SANS le chemin du fichier.",
-					"default": "castem20"
+          "description": "La commande à exécuter pour lancer le script Gibiane, SANS le chemin du fichier.",
+          "default": "castem20"
         },
-				"gibiane-vscode.afficherBouttonDExecution": {
-					"type": "boolean",
-          "description": "Afficher le bouton d'éxecution des scripts Gibiane ou non.",
-					"default": true
-				}
-			}
-		},
+        "gibiane-vscode.afficherBouttonDExecution": {
+          "type": "boolean",
+          "description": "Afficher le bouton d'exécution des scripts Gibiane ou non.",
+          "default": true
+        }
+      }
+    },
     "languages": [
       {
         "id": "gibiane",

@@ -1,5 +1,11 @@
 ## Notes
 
+## [0.0.4]
+
+### Fixed
+
+ - Correction de fautes de frappes.
+
 ## [0.0.3]
 
 ### Added
