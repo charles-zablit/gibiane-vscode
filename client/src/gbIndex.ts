@@ -6,6 +6,7 @@ import {
 } from "vscode";
 import { Providers } from "./providers/gbProviders";
 import { registerGBCommands } from "./commands/gbRegisterCommands";
+import * as path from "path";
 
 const GB_MODE: DocumentFilter = {
   language: "gibiane",
@@ -23,6 +24,9 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push(
     languages.registerDefinitionProvider(GB_MODE, providers.definitions)
   );
+	context.subscriptions.push(
+    languages.registerHoverProvider(GB_MODE, providers.completionsProvider)
+  );
   Workspace.onDidChangeTextDocument(
     providers.handle_document_change,
     providers,
@@ -38,6 +42,12 @@ export function activate(context: ExtensionContext) {
     providers,
     context.subscriptions
   );
+
+	for(let document of Workspace.textDocuments){
+		if(path.extname(document.uri.fsPath)==".dgibi"){
+			providers.handle_new_document(document);
+		}
+	}
 
 	//Register the commands
 	registerGBCommands(context);

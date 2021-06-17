@@ -49,7 +49,7 @@ export class Providers {
     {
       let this_completions: gbCompletions.FileCompletions =
         new gbCompletions.FileCompletions(uri);
-      if (typeof text != undefined) {
+      if (typeof text != "undefined") {
         try {
           gbParser.parse_text(
             text,

@@ -63,7 +63,7 @@ class Parser {
     // Match define
     let match = line.match(/^\s*(\w+)\s*=/);
     if (match) {
-      this.completions.add(match[1], new VariableCompletion(match[1]));
+      this.completions.add(match[1], new VariableCompletion(match[1], line));
       this.AddDefinition(match[1], line, gbDefinitions.DefinitionKind.Variable);
       return;
     }
