@@ -1,5 +1,12 @@
 ## Notes
 
+## [0.0.3]
+
+### Added
+
+ - Ajout d'une fonctionnalité pour lancer les scripts Gibiane directement depuis VSCode.
+ - Ajout de la fonctionnalité _Hover_.
+
 ## [0.0.2]
 
 ### Added

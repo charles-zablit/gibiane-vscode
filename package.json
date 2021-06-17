@@ -2,7 +2,7 @@
   "name": "gibiane-vscode",
   "displayName": "Gibiane",
   "description": "Gibiane syntax highlighting",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "CharlesZablit",
   "main": "client/out/gbIndex",
   "icon": "icon.png",
@@ -17,9 +17,46 @@
     "Programming Languages"
   ],
   "activationEvents": [
-    "onLanguage:gibiane"
+    "onLanguage:gibiane",
+    "onCommand:gibiane-vscode.execScript"
   ],
   "contributes": {
+		"commands": [
+      {
+        "command": "gibiane-vscode.execScript",
+        "title": "Executer script Gibiane",
+				"category": "ShortcutMenuBar",
+        "icon": {
+          "light": "fileicons/images/compile.svg",
+          "dark": "fileicons/images/compile.svg"
+        }
+      }
+		],
+		"menus":{
+			"editor/title": [
+				{
+					"when": "resourceLangId == gibiane && config.gibiane-vscode.afficherBouttonDExecution",
+					"command": "gibiane-vscode.execScript",
+					"group": "navigation@1"
+				}
+			]
+		},
+		"configuration": {
+      "type": "object",
+      "title": "Configuration de Gibiane pour VSCode",
+      "properties": {
+        "gibiane-vscode.Commande": {
+          "type": "string",
+          "description": "La commande à éxecuter pour lancer le script Gibiane, SANS le chemin du fichier.",
+					"default": "castem20"
+        },
+				"gibiane-vscode.afficherBouttonDExecution": {
+					"type": "boolean",
+          "description": "Afficher le bouton d'éxecution des scripts Gibiane ou non.",
+					"default": true
+				}
+			}
+		},
     "languages": [
       {
         "id": "gibiane",
