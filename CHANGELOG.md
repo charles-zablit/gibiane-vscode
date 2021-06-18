@@ -1,5 +1,11 @@
 ## Notes
 
+## [0.0.5]
+
+### Fixed
+
+ - Résolution d'un problème de déploiement.
+
 ## [0.0.4]
 
 ### Fixed
