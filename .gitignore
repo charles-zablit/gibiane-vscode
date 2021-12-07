@@ -5,3 +5,6 @@ out/
 .DS_Store
 package-lock.json
 old.xml
+chromedriver.exe
+chromedriver
+data.json
