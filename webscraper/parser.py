@@ -1,6 +1,7 @@
 ﻿from selenium import webdriver
 from selenium.webdriver.common.by import By
 import json
+import os
 
 BASE_URL = "http://www-cast3m.cea.fr/index.php?page=notices&notice="
 def main():
@@ -29,7 +30,6 @@ def main():
     for doc in docs:
         documentation = getDocumentation(f'{BASE_URL}{doc["url"]}')
         doc["documentation"] = documentation
-        break
 
     with open('data.json', 'w') as outfile:
         json.dump(docs, outfile)   
@@ -42,5 +42,8 @@ def getDocumentation(url: str):
     
 
 if __name__ == "__main__":
-  with webdriver.Chrome('./chromedriver.exe') as driver:
-      main()
+    CHROMEDRIVER_PATH = './chromedriver'
+    if os.name == 'nt':
+        CHROMEDRIVER_PATH+=".exe"
+    with webdriver.Chrome(CHROMEDRIVER_PATH) as driver:
+        main()
