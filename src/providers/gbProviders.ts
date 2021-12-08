@@ -1,5 +1,10 @@
-import * as vscode from "vscode";
-import * as gbCompletions from "./gbCompletions";
+import {
+  TextDocument,
+  Memento,
+  FileCreateEvent,
+  TextDocumentChangeEvent,
+} from "vscode";
+import * as gbCompletions from "./gbItemsRepository";
 import * as gbParser from "./gbParser";
 import { URI } from "vscode-uri";
 import * as gbDefinitions from "./gbDefinitions";
@@ -8,27 +13,28 @@ export class Providers {
   completionsProvider: gbCompletions.CompletionRepository;
   definitions: gbDefinitions.DefinitionRepository;
 
-  constructor(globalState?: vscode.Memento) {
+  constructor(globalState?: Memento) {
     this.completionsProvider = new gbCompletions.CompletionRepository(
       globalState
     );
     this.definitions = new gbDefinitions.DefinitionRepository(globalState);
   }
 
-  public handle_new_document(document: vscode.TextDocument) {
+  public handle_new_document(document: TextDocument) {
     this.documentEditCallback(document.uri.toString());
   }
 
-  public handle_added_document(event: vscode.FileCreateEvent): any {
+  public handle_added_document(event: FileCreateEvent): any {
     for (let file of event.files) {
       this.documentEditCallback(URI.file(file.fsPath).toString());
     }
   }
 
-  public handle_document_change(event: vscode.TextDocumentChangeEvent) {
+  public handle_document_change(event: TextDocumentChangeEvent) {
     let uri = event.document.uri;
-    let this_completions: gbCompletions.FileCompletions =
-      new gbCompletions.FileCompletions(uri.toString());
+    let this_completions: gbCompletions.FileItems = new gbCompletions.FileItems(
+      uri.toString()
+    );
     try {
       gbParser.parse_text(
         event.document.getText(),
@@ -47,8 +53,8 @@ export class Providers {
 
   public documentEditCallback(uri: string, text: string = undefined): void {
     {
-      let this_completions: gbCompletions.FileCompletions =
-        new gbCompletions.FileCompletions(uri);
+      let this_completions: gbCompletions.FileItems =
+        new gbCompletions.FileItems(uri);
       if (typeof text != "undefined") {
         try {
           gbParser.parse_text(

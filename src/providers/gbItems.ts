@@ -1,6 +1,6 @@
 import { CompletionItemKind, CompletionItem, Hover } from "vscode";
 
-export interface Completion {
+export interface GBItem {
   name: string;
   kind: CompletionItemKind;
   description?: string;
@@ -9,7 +9,7 @@ export interface Completion {
   toHoverItem(): Hover;
 }
 
-export class VariableCompletion implements Completion {
+export class VariableCompletion implements GBItem {
   name: string;
   kind = CompletionItemKind.Function;
   description: string;

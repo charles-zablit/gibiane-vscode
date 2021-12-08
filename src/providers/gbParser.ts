@@ -1,4 +1,4 @@
-import * as gbCompletions from "./gbCompletions";
+import * as gbCompletions from "./gbItemsRepository";
 import * as gbDefinitions from "./gbDefinitions";
 import * as fs from "fs";
 import { URI } from "vscode-uri";
@@ -7,7 +7,7 @@ import { VariableCompletion } from "./gbItems";
 
 export function parse_file(
   file: string,
-  completions: gbCompletions.FileCompletions,
+  completions: gbCompletions.FileItems,
   definitions: gbDefinitions.Definitions
 ) {
   let data = fs.readFileSync(file, "utf-8");
@@ -16,7 +16,7 @@ export function parse_file(
 
 export function parse_text(
   data: string,
-  completions: gbCompletions.FileCompletions,
+  completions: gbCompletions.FileItems,
   definitions: gbDefinitions.Definitions,
   file: string
 ) {
@@ -29,7 +29,7 @@ export function parse_text(
 }
 
 class Parser {
-  completions: gbCompletions.FileCompletions;
+  completions: gbCompletions.FileItems;
   definitions: gbDefinitions.Definitions;
   lines: string[];
   lineNb: number;
@@ -37,7 +37,7 @@ class Parser {
 
   constructor(
     lines: string[],
-    completions: gbCompletions.FileCompletions,
+    completions: gbCompletions.FileItems,
     definitions: gbDefinitions.Definitions,
     file: string
   ) {
