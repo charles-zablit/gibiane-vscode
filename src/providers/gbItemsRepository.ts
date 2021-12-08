@@ -1,5 +1,4 @@
 import {
-  CompletionItem,
   Memento,
   Disposable,
   TextDocument,
@@ -8,6 +7,8 @@ import {
   CompletionItemProvider,
   CancellationToken,
   Hover,
+  Location,
+  DefinitionLink,
 } from "vscode";
 import { GBItem } from "./gbItems";
 
@@ -38,14 +39,12 @@ export class FileItems {
   }
 }
 
-export class CompletionRepository
-  implements CompletionItemProvider, Disposable
-{
-  public completions: Map<string, FileItems>;
+export class ItemsRepository implements CompletionItemProvider, Disposable {
+  public items: Map<string, FileItems>;
   private globalState: Memento;
 
   constructor(globalState?: Memento) {
-    this.completions = new Map();
+    this.items = new Map();
     this.globalState = globalState;
   }
 
@@ -54,30 +53,43 @@ export class CompletionRepository
     position: Position,
     token: CancellationToken
   ): CompletionList {
-    let all_completions_list: CompletionList = new CompletionList();
-    all_completions_list.items = this.completions
+    let completionsList: CompletionList = new CompletionList();
+    completionsList.items = this.items
       .get(document.uri.toString())
       .getAllItems()
       .map((e) => e.toCompletionItem());
-    return all_completions_list;
+    return completionsList;
   }
 
-  public provideHover(
+  public async provideHover(
     document: TextDocument,
     position: Position,
     token: CancellationToken
-  ): Hover {
+  ): Promise<Hover> {
     let range = document.getWordRangeAtPosition(position);
     let word = document.getText(range);
-    let completions = this.completions
+    let item = this.items
       .get(document.uri.toString())
       .getAllItems()
-      .filter((completion) => {
-        return completion.name === word;
-      });
+      .find((completion) => completion.name === word);
 
-    if (completions.length > 0) {
-      return completions[0].toHoverItem();
+    if (item) {
+      return item.toHoverItem();
+    }
+  }
+
+  public async provideDefinition(
+    document: TextDocument,
+    position: Position,
+    token: CancellationToken
+  ): Promise<Location | DefinitionLink[]> {
+    let range = document.getWordRangeAtPosition(position);
+    let word = document.getText(range);
+    let items = this.items.get(document.uri.toString()).getAllItems();
+    items = items.filter((completion) => completion.name === word);
+
+    if (items.length > 0) {
+      return items.map((e) => e.toDefinitionItem());
     }
   }
 

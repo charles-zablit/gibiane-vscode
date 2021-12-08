@@ -1,48 +1,30 @@
-import * as gbCompletions from "./gbItemsRepository";
-import * as gbDefinitions from "./gbDefinitions";
-import * as fs from "fs";
-import { URI } from "vscode-uri";
-import * as vscode from "vscode";
+import { Range } from "vscode";
+import { FileItems } from "./gbItemsRepository";
+import { readFileSync } from "fs";
 import { VariableCompletion } from "./gbItems";
 
-export function parse_file(
-  file: string,
-  completions: gbCompletions.FileItems,
-  definitions: gbDefinitions.Definitions
-) {
-  let data = fs.readFileSync(file, "utf-8");
-  parse_text(data, completions, definitions, file);
+export function parseFile(file: string, completions: FileItems) {
+  let data = readFileSync(file, "utf-8");
+  parseText(data, completions, file);
 }
 
-export function parse_text(
-  data: string,
-  completions: gbCompletions.FileItems,
-  definitions: gbDefinitions.Definitions,
-  file: string
-) {
+export function parseText(data: string, completions: FileItems, file: string) {
   if (typeof data === "undefined") {
     return; // Asked to parse an empty file
   }
   let lines = data.split("\n");
-  let parser = new Parser(lines, completions, definitions, file);
+  let parser = new Parser(lines, completions, file);
   parser.parse();
 }
 
 class Parser {
-  completions: gbCompletions.FileItems;
-  definitions: gbDefinitions.Definitions;
+  items: FileItems;
   lines: string[];
   lineNb: number;
   file: string;
 
-  constructor(
-    lines: string[],
-    completions: gbCompletions.FileItems,
-    definitions: gbDefinitions.Definitions,
-    file: string
-  ) {
-    this.completions = completions;
-    this.definitions = definitions;
+  constructor(lines: string[], items: FileItems, file: string) {
+    this.items = items;
     this.file = file;
     this.lineNb = -1;
     this.lines = lines;
@@ -63,29 +45,17 @@ class Parser {
     // Match define
     let match = line.match(/^\s*(\w+)\s*=/);
     if (match) {
-      this.completions.add(match[1], new VariableCompletion(match[1], line));
-      this.AddDefinition(match[1], line, gbDefinitions.DefinitionKind.Variable);
+      let name = match[1];
+      let start = line.search(name);
+      let end = start + name.length;
+      let range = PositiveRange(this.lineNb, start, end);
+      // this.AddDefinition(name, line, gbDefinitions.DefinitionKind.Variable);
+      this.items.add(
+        name,
+        new VariableCompletion(name, line, range, this.file)
+      );
       return;
     }
-  }
-
-  AddDefinition(
-    name: string,
-    line: string,
-    kind: gbDefinitions.DefinitionKind,
-    search: boolean = true
-  ): void {
-    let start: number = search ? line.search(name) : 0;
-    let end: number = search ? start + name.length : 0;
-    var def: gbDefinitions.DefLocation = new gbDefinitions.DefLocation(
-      URI.parse(this.file),
-      PositiveRange(this.lineNb, start, end),
-      kind
-    );
-    if (!this.definitions.has(name)) {
-      this.definitions.set(name, def);
-    }
-    return;
   }
 }
 
@@ -93,9 +63,9 @@ function PositiveRange(
   lineNb: number,
   start: number = 0,
   end: number = 0
-): vscode.Range {
+): Range {
   lineNb = lineNb > 0 ? lineNb : 0;
   start = start > 0 ? start : 0;
   end = end > 0 ? end : 0;
-  return new vscode.Range(lineNb, start, lineNb, end);
+  return new Range(lineNb, start, lineNb, end);
 }

@@ -4,20 +4,15 @@ import {
   FileCreateEvent,
   TextDocumentChangeEvent,
 } from "vscode";
-import * as gbCompletions from "./gbItemsRepository";
-import * as gbParser from "./gbParser";
+import { ItemsRepository, FileItems } from "./gbItemsRepository";
+import { parseText, parseFile } from "./gbParser";
 import { URI } from "vscode-uri";
-import * as gbDefinitions from "./gbDefinitions";
 
 export class Providers {
-  completionsProvider: gbCompletions.CompletionRepository;
-  definitions: gbDefinitions.DefinitionRepository;
+  completionsProvider: ItemsRepository;
 
   constructor(globalState?: Memento) {
-    this.completionsProvider = new gbCompletions.CompletionRepository(
-      globalState
-    );
-    this.definitions = new gbDefinitions.DefinitionRepository(globalState);
+    this.completionsProvider = new ItemsRepository(globalState);
   }
 
   public handle_new_document(document: TextDocument) {
@@ -32,20 +27,13 @@ export class Providers {
 
   public handle_document_change(event: TextDocumentChangeEvent) {
     let uri = event.document.uri;
-    let this_completions: gbCompletions.FileItems = new gbCompletions.FileItems(
-      uri.toString()
-    );
+    let this_completions: FileItems = new FileItems(uri.toString());
     try {
-      gbParser.parse_text(
-        event.document.getText(),
-        this_completions,
-        this.definitions.Definitions,
-        uri.toString()
-      );
+      parseText(event.document.getText(), this_completions, uri.toString());
     } catch (error) {
       console.log(error);
     }
-    this.completionsProvider.completions.set(
+    this.completionsProvider.items.set(
       event.document.uri.toString(),
       this_completions
     );
@@ -53,32 +41,22 @@ export class Providers {
 
   public documentEditCallback(uri: string, text: string = undefined): void {
     {
-      let this_completions: gbCompletions.FileItems =
-        new gbCompletions.FileItems(uri);
+      let this_completions: FileItems = new FileItems(uri);
       if (typeof text != "undefined") {
         try {
-          gbParser.parse_text(
-            text,
-            this_completions,
-            this.definitions.Definitions,
-            uri
-          );
+          parseText(text, this_completions, uri);
         } catch (error) {
           console.error(error);
         }
       } else {
         try {
-          gbParser.parse_file(
-            URI.parse(uri).fsPath,
-            this_completions,
-            this.definitions.Definitions
-          );
+          parseFile(URI.parse(uri).fsPath, this_completions);
         } catch (error) {
           console.error(error);
         }
       }
 
-      this.completionsProvider.completions.set(uri, this_completions);
+      this.completionsProvider.items.set(uri, this_completions);
     }
   }
 }
