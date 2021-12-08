@@ -4,7 +4,7 @@
 		"target": "es2019",
 		"lib": ["ES2019"],
 		"outDir": "out",
-		"rootDir": "src",
+		"rootDir": ".",
 		"sourceMap": true
 	},
 	"include": [
@@ -14,8 +14,5 @@
 	"exclude": [
 		"node_modules",
 		".vscode-test"
-	],
-	"references": [
-		{ "path": "./client" },
 	]
 }

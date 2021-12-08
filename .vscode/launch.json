@@ -12,21 +12,8 @@
 			],
 			"sourceMaps": true,
 			"outFiles": [
-				"${workspaceRoot}/client/out/**/*.js"
+				"${workspaceRoot}/dist/**/*.js"
 			]
-		},
-		{
-			"name": "Extension Tests",
-			"type": "extensionHost",
-			"request": "launch",
-			"runtimeExecutable": "${execPath}",
-			"args": [
-				"${workspaceRoot}/client/src/test/examples",
-				"--disable-extensions",
-				"--extensionDevelopmentPath=${workspaceRoot}",
-				"--extensionTestsPath=${workspaceRoot}/client/out/test/suite/index"
-			],
-			"outFiles": ["${workspaceRoot}/client/out/test/**/*.js"]
 		}
 	]
 }

@@ -1,5 +1,11 @@
 ## Notes
 
+## [1.0.0]
+
+### Added
+
+ - L'extension est maintenant un bundle JavaScript créé avec Webpack pour améliorer les performances.
+
 ## [0.0.5]
 
 ### Fixed
