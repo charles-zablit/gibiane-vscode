@@ -8,3 +8,4 @@ old.xml
 chromedriver.exe
 chromedriver
 dist/
+.vscode/

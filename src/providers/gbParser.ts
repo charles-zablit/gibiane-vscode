@@ -3,7 +3,7 @@ import * as gbDefinitions from "./gbDefinitions";
 import * as fs from "fs";
 import { URI } from "vscode-uri";
 import * as vscode from "vscode";
-import { VariableCompletion } from "./gbCompletionsKind";
+import { VariableCompletion } from "./gbItems";
 
 export function parse_file(
   file: string,

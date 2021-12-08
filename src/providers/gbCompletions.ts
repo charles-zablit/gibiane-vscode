@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { Completion } from "./gbCompletionsKind";
+import { Completion } from "./gbItems";
 import { provideHover } from "./gbHover";
 
 export class FileCompletions {
@@ -32,7 +32,7 @@ export class FileCompletions {
   get_completions(): vscode.CompletionItem[] {
     let completions = [];
     for (let completion of this.completions.values()) {
-      completions.push(completion.to_completion_item());
+      completions.push(completion.toCompletionItem());
     }
     return completions;
   }
@@ -77,7 +77,7 @@ export class CompletionRepository
       });
 
     if (completions.length > 0) {
-      return completions[0].get_hover();
+      return completions[0].toHoverItem();
     }
   }
 

@@ -1,17 +1,17 @@
-import * as vscode from "vscode";
+import { CompletionItemKind, CompletionItem, Hover } from "vscode";
 
 export interface Completion {
   name: string;
-  kind: vscode.CompletionItemKind;
+  kind: CompletionItemKind;
   description?: string;
 
-  to_completion_item(): vscode.CompletionItem;
-  get_hover(): vscode.Hover;
+  toCompletionItem(): CompletionItem;
+  toHoverItem(): Hover;
 }
 
 export class VariableCompletion implements Completion {
   name: string;
-  kind = vscode.CompletionItemKind.Function;
+  kind = CompletionItemKind.Function;
   description: string;
 
   constructor(name: string, description: string) {
@@ -19,7 +19,7 @@ export class VariableCompletion implements Completion {
     this.description = description;
   }
 
-  to_completion_item(): vscode.CompletionItem {
+  toCompletionItem(): CompletionItem {
     return {
       label: this.name,
       kind: this.kind,
@@ -27,9 +27,9 @@ export class VariableCompletion implements Completion {
     };
   }
 
-  get_hover(): vscode.Hover {
+  toHoverItem(): Hover {
     if (this.description != "") {
-      return new vscode.Hover({ language: "gibiane", value: this.description });
+      return new Hover({ language: "gibiane", value: this.description });
     }
   }
 }
