@@ -30,6 +30,10 @@ export class FileItems {
   get(id: string): GBItem {
     return this.items.get(id);
   }
+  
+  has(id: string): boolean {
+    return this.items.has(id);
+  }
 
   getAllItems(): GBItem[] {
     let items = [];

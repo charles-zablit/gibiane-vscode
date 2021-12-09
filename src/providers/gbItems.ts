@@ -10,7 +10,7 @@ import { URI } from "vscode-uri";
 export interface GBItem {
   name: string;
   kind: CompletionItemKind;
-  filePath?: string;
+  uri?: string;
   range?: Range;
   description?: string;
 
@@ -24,18 +24,13 @@ export class VariableCompletion implements GBItem {
   kind = CompletionItemKind.Variable;
   description: string;
   range: Range;
-  filePath: string;
+  uri: string;
 
-  constructor(
-    name: string,
-    description: string,
-    range: Range,
-    filePath: string
-  ) {
+  constructor(name: string, description: string, range: Range, uri: string) {
     this.name = name;
     this.description = description;
     this.range = range;
-    this.filePath = filePath;
+    this.uri = uri;
   }
 
   toCompletionItem(): CompletionItem {
@@ -55,7 +50,7 @@ export class VariableCompletion implements GBItem {
   toDefinitionItem(): LocationLink {
     return {
       targetRange: this.range,
-      targetUri: URI.file(this.filePath),
+      targetUri: URI.parse(this.uri),
     };
   }
 }
