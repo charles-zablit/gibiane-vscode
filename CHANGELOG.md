@@ -9,6 +9,7 @@
 - Ajout d'un lien vers la documentation en ligne dans le Hover.
 - Ajout du syntax highlighting dynamique.
 - Ajout d'un code outline.
+- Ajout du renommage de symboles.
 
 ## [0.0.5]
 

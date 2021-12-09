@@ -13,6 +13,8 @@ import {
   SemanticTokens,
   SemanticTokensBuilder,
   CompletionItemKind,
+  WorkspaceEdit,
+  TextEdit,
 } from "vscode";
 import { GBItem } from "./gbItems";
 import { importBuiltins } from "./gbImportBuiltins";
@@ -145,6 +147,33 @@ export class ItemsRepository implements CompletionItemProvider, Disposable {
     return items
       .filter((e) => e.kind === CompletionItemKind.Variable)
       .map((e) => e.toSymbolItem());
+  }
+
+  public async provideRenameEdits(
+    document: TextDocument,
+    position: Position,
+    newName: string,
+    token: CancellationToken
+  ): Promise<WorkspaceEdit> {
+    let range = document.getWordRangeAtPosition(position);
+    let word = document.getText(range);
+    let items = this.items.get(document.uri.toString()).getAllItems();
+    let item = items.find(
+      (e) =>
+        e.name === word.toUpperCase() && e.kind === CompletionItemKind.Variable
+    );
+    if (item === undefined) {
+      return undefined;
+    }
+    let textedits: TextEdit[] = item.calls.map((e) => {
+      return new TextEdit(e.range, newName);
+    });
+    // Add the definition as well
+    textedits.push(new TextEdit(item.range, newName));
+
+    let edit = new WorkspaceEdit();
+    edit.set(document.uri, textedits);
+    return edit;
   }
 
   public dispose() {}
