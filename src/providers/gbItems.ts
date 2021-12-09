@@ -83,7 +83,7 @@ export class FunctionCompletion implements GBItem {
     if (this.description != "") {
       return new Hover([
         `[Documentation en ligne](${this.url})`,
-        { language: "markdown", value: this.description },
+        { language: "plain", value: this.description },
       ]);
     }
   }
