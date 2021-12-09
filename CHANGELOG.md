@@ -6,6 +6,7 @@
 
 - L'extension est maintenant un bundle JavaScript créé avec Webpack pour améliorer les performances.
 - Ajout de l'autocompletion pour les fonctions.
+- Ajout d'un lien vers la documentation en ligne dans le Hover.
 
 ## [0.0.5]
 

@@ -59,10 +59,12 @@ export class FunctionCompletion implements GBItem {
   name: string;
   kind = CompletionItemKind.Function;
   description: string;
+  url: string;
 
-  constructor(name: string, description: string) {
+  constructor(name: string, description: string, url: string) {
     this.name = name;
     this.description = description;
+    this.url = url;
   }
 
   toCompletionItem(): CompletionItem {
@@ -75,7 +77,10 @@ export class FunctionCompletion implements GBItem {
 
   toHoverItem(): Hover {
     if (this.description != "") {
-      return new Hover({ language: "gibiane", value: this.description });
+      return new Hover([
+        `[Documentation en ligne](${this.url})`,
+        { language: "markdown", value: this.description },
+      ]);
     }
   }
 
