@@ -13,10 +13,18 @@ Cette extension pour [Visual Studio Code](https://code.visualstudio.com/) ajoute
 - Executer les scripts Gibiane depuis un bouton dans l'éditeur (lire la partie [configuration](#configuration))
 - _Syntax highlighting_ (cf image ci-dessus).
 - _Go-To-Defintion_, un ctrl+click sur une variable ramène à sa définition.
-- _Autocompletion_, la suggestion des noms de variables déjà déclarées, comme sur la photo ci-dessous.
-- _Hover_, passer votre souris sur une variable pour avoir un aperçu de sa définition.
+- _Autocompletion_, la suggestion de procédures et des noms de variables déjà déclarées, comme sur la photo ci-dessous.
+- _Hover_, passer votre souris sur une variable ou une fonction pour avoir un aperçu de sa définition et la documentation associée.
+- _Rename_, possibilité de renommer une variable d'un seul click.
+- _Code outline_, permet de voir la structure du code.
 
 ![Example AutoCompletion](https://raw.githubusercontent.com/charles-zablit/gibiane-vscode/master/images/example-2.png)
+
+![Example Rename](https://raw.githubusercontent.com/charles-zablit/gibiane-vscode/master/images/example-3.png)
+
+![Example Outline](https://raw.githubusercontent.com/charles-zablit/gibiane-vscode/master/images/example-4.png)
+
+![Example Hover](https://raw.githubusercontent.com/charles-zablit/gibiane-vscode/master/images/example-5.png)
 
 ## Utilisation
 
@@ -40,7 +48,7 @@ _N.B_: Si vous préférez avoir plus de contrôle sur l'exécution de votre scri
 
 La configuration se fait dans le menu _Settings_ de VSCode.
 
-****Elle n'est à faire que si le bouton d'exécution des scripts ne fonctionne pas.** **
+\***\*Elle n'est à faire que si le bouton d'exécution des scripts ne fonctionne pas.** \*\*
 
 Cliquez sur la roue dentée (1), puis sur settings (2), puis dans la barre de recherche (3) tapez Gibiane. Dans le champs `Gibiane-vscode:Commande` (4), rentrez le nom de la commande avec laquelle vous executez votre script habituellement. Par exemple, si vous utilisez `castem20 /home/me/script.dgibi`, rentrez `castem20` uniquement.
 ![Configuration](https://raw.githubusercontent.com/charles-zablit/gibiane-vscode/master/images/configuration-1.png)
