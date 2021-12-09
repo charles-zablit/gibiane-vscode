@@ -80,8 +80,17 @@ export class ItemsRepository implements CompletionItemProvider, Disposable {
     let item = this.items
       .get(document.uri.toString())
       .getAllItems()
-      .find((completion) => completion.name === word.toUpperCase());
+      .find((e) => e.name === word.toUpperCase());
 
+    if (item) {
+      return item.toHoverItem();
+    }
+
+    // Try partial match
+    item = this.items
+      .get(document.uri.toString())
+      .getAllItems()
+      .find((e) => word.toUpperCase().startsWith(e.name));
     if (item) {
       return item.toHoverItem();
     }
@@ -95,10 +104,17 @@ export class ItemsRepository implements CompletionItemProvider, Disposable {
     let range = document.getWordRangeAtPosition(position);
     let word = document.getText(range);
     let items = this.items.get(document.uri.toString()).getAllItems();
-    items = items.filter(
-      (completion) => completion.name === word.toUpperCase()
-    );
+    items = items.filter((e) => e.name === word.toUpperCase());
 
+    if (items.length > 0) {
+      return items.map((e) => e.toDefinitionItem());
+    }
+
+    // Try partial match
+    items = this.items
+      .get(document.uri.toString())
+      .getAllItems()
+      .filter((e) => word.toUpperCase().startsWith(e.name));
     if (items.length > 0) {
       return items.map((e) => e.toDefinitionItem());
     }
