@@ -54,10 +54,17 @@ class Parser {
       let start = line.search(name);
       let end = start + name.length;
       let range = PositiveRange(this.lineNb, start, end);
+      let fullRange = PositiveRange(this.lineNb, 0, line.length);
       if (!this.items.has(name)) {
         this.items.add(
           name,
-          new VariableCompletion(name.toUpperCase(), line, range, this.uri)
+          new VariableCompletion(
+            name.toUpperCase(),
+            line,
+            range,
+            fullRange,
+            this.uri
+          )
         );
       }
       return;

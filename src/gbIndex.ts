@@ -42,6 +42,10 @@ export function activate(context: ExtensionContext) {
     )
   );
 
+  context.subscriptions.push(
+    languages.registerDocumentSymbolProvider(GB_MODE, providers.itemsRepository)
+  );
+
   Workspace.onDidChangeTextDocument(
     providers.handle_document_change,
     providers,

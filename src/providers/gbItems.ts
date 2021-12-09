@@ -5,6 +5,8 @@ import {
   LocationLink,
   Range,
   Location,
+  DocumentSymbol,
+  SymbolKind,
 } from "vscode";
 import { URI } from "vscode-uri";
 
@@ -13,12 +15,14 @@ export interface GBItem {
   kind: CompletionItemKind;
   uri?: string;
   range?: Range;
+  fullRange?: Range;
   description?: string;
   calls?: Location[];
 
   toCompletionItem(): CompletionItem;
   toHoverItem(): Hover;
   toDefinitionItem(): LocationLink;
+  toSymbolItem(): DocumentSymbol;
 }
 
 export class VariableCompletion implements GBItem {
@@ -26,13 +30,21 @@ export class VariableCompletion implements GBItem {
   kind = CompletionItemKind.Variable;
   description: string;
   range: Range;
+  fullRange: Range;
   uri: string;
   calls: Location[];
 
-  constructor(name: string, description: string, range: Range, uri: string) {
+  constructor(
+    name: string,
+    description: string,
+    range: Range,
+    fullRange: Range,
+    uri: string
+  ) {
     this.name = name;
     this.description = description;
     this.range = range;
+    this.fullRange = fullRange;
     this.uri = uri;
     this.calls = [];
   }
@@ -56,6 +68,19 @@ export class VariableCompletion implements GBItem {
       targetRange: this.range,
       targetUri: URI.parse(this.uri),
     };
+  }
+
+  toSymbolItem(): DocumentSymbol {
+    if (this.fullRange === undefined) {
+      return undefined;
+    }
+    return new DocumentSymbol(
+      this.name,
+      this.description,
+      SymbolKind.Variable,
+      this.fullRange,
+      this.range
+    );
   }
 }
 
@@ -89,6 +114,10 @@ export class FunctionCompletion implements GBItem {
   }
 
   toDefinitionItem(): LocationLink {
+    return undefined;
+  }
+
+  toSymbolItem(): DocumentSymbol {
     return undefined;
   }
 }

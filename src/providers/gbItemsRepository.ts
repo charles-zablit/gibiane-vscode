@@ -4,6 +4,7 @@ import {
   TextDocument,
   Position,
   CompletionList,
+  DocumentSymbol,
   CompletionItemProvider,
   CancellationToken,
   Hover,
@@ -134,6 +135,16 @@ export class ItemsRepository implements CompletionItemProvider, Disposable {
       }
     }
     return tokensBuilder.build();
+  }
+
+  public async provideDocumentSymbols(
+    document: TextDocument,
+    token: CancellationToken
+  ): Promise<DocumentSymbol[]> {
+    let items = this.items.get(document.uri.toString()).getAllItems();
+    return items
+      .filter((e) => e.kind === CompletionItemKind.Variable)
+      .map((e) => e.toSymbolItem());
   }
 
   public dispose() {}
