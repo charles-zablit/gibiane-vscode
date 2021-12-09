@@ -68,18 +68,28 @@ class Parser {
     if (line === undefined || /^\s*\*/.test(line)) {
       return;
     }
+    let isDoubleQuoteString = false;
+    let isSingleQuoteString = false;
+
     let items = this.items
       .getAllItems()
       .filter((e) => e.kind === CompletionItemKind.Variable);
-    const re: RegExp = /\b(\w+)\b/g;
+    const re: RegExp = /(?:"|'|\b\w+\b)/g;
     let matchItem: RegExpExecArray;
     do {
       matchItem = re.exec(line);
       if (matchItem) {
+        if (matchItem[0] === '"' && !isSingleQuoteString) {
+          isDoubleQuoteString = !isDoubleQuoteString;
+          continue;
+        } else if (matchItem[0] === "'" && !isDoubleQuoteString) {
+          isSingleQuoteString = !isSingleQuoteString;
+          continue;
+        }
         let matchVariable = items.find(
-          (e) => e.name === matchItem[1].toUpperCase()
+          (e) => e.name === matchItem[0].toUpperCase()
         );
-        if (matchVariable) {
+        if (matchVariable && !(isDoubleQuoteString || isSingleQuoteString)) {
           let range = PositiveRange(
             lineNb,
             matchItem.index,
