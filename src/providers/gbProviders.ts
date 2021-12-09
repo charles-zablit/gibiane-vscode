@@ -9,10 +9,10 @@ import { parseText, parseFile } from "./gbParser";
 import { URI } from "vscode-uri";
 
 export class Providers {
-  completionsProvider: ItemsRepository;
+  itemsRepository: ItemsRepository;
 
   constructor(globalState?: Memento) {
-    this.completionsProvider = new ItemsRepository(globalState);
+    this.itemsRepository = new ItemsRepository(globalState);
   }
 
   public handle_new_document(document: TextDocument) {
@@ -27,36 +27,33 @@ export class Providers {
 
   public handle_document_change(event: TextDocumentChangeEvent) {
     let uri = event.document.uri;
-    let this_completions: FileItems = new FileItems(uri.toString());
+    let items: FileItems = new FileItems(uri.toString());
     try {
-      parseText(event.document.getText(), this_completions, uri.toString());
+      parseText(event.document.getText(), items, uri.toString());
     } catch (error) {
       console.log(error);
     }
-    this.completionsProvider.items.set(
-      event.document.uri.toString(),
-      this_completions
-    );
+    this.itemsRepository.items.set(event.document.uri.toString(), items);
   }
 
   public documentEditCallback(uri: string, text: string = undefined): void {
     {
-      let this_completions: FileItems = new FileItems(uri);
+      let items: FileItems = new FileItems(uri);
       if (typeof text != "undefined") {
         try {
-          parseText(text, this_completions, uri);
+          parseText(text, items, uri);
         } catch (error) {
           console.error(error);
         }
       } else {
         try {
-          parseFile(URI.parse(uri).fsPath, this_completions);
+          parseFile(URI.parse(uri).fsPath, items);
         } catch (error) {
           console.error(error);
         }
       }
 
-      this.completionsProvider.items.set(uri, this_completions);
+      this.itemsRepository.items.set(uri, items);
     }
   }
 }

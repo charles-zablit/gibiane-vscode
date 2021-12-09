@@ -11,28 +11,29 @@ import {
   DefinitionLink,
 } from "vscode";
 import { GBItem } from "./gbItems";
+import { importBuiltins } from "./gbImportBuiltins";
 
 export class FileItems {
-  completions: Map<string, GBItem>;
+  items: Map<string, GBItem>;
   uri: string;
   provideHover: any;
 
   constructor(uri: string) {
-    this.completions = new Map();
+    this.items = importBuiltins();
     this.uri = uri;
   }
 
   add(id: string, completion: GBItem) {
-    this.completions.set(id, completion);
+    this.items.set(id, completion);
   }
 
   get(id: string): GBItem {
-    return this.completions.get(id);
+    return this.items.get(id);
   }
 
   getAllItems(): GBItem[] {
     let items = [];
-    for (let item of this.completions.values()) {
+    for (let item of this.items.values()) {
       items.push(item);
     }
     return items;

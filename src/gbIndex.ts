@@ -17,18 +17,15 @@ export function activate(context: ExtensionContext) {
   const providers = new Providers(context.globalState);
 
   context.subscriptions.push(
-    languages.registerCompletionItemProvider(
-      GB_MODE,
-      providers.completionsProvider
-    )
+    languages.registerCompletionItemProvider(GB_MODE, providers.itemsRepository)
   );
 
   context.subscriptions.push(
-    languages.registerDefinitionProvider(GB_MODE, providers.completionsProvider)
+    languages.registerDefinitionProvider(GB_MODE, providers.itemsRepository)
   );
 
   context.subscriptions.push(
-    languages.registerHoverProvider(GB_MODE, providers.completionsProvider)
+    languages.registerHoverProvider(GB_MODE, providers.itemsRepository)
   );
 
   Workspace.onDidChangeTextDocument(

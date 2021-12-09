@@ -10,8 +10,8 @@ import { URI } from "vscode-uri";
 export interface GBItem {
   name: string;
   kind: CompletionItemKind;
-  range: Range;
-  filePath: string;
+  filePath?: string;
+  range?: Range;
   description?: string;
 
   toCompletionItem(): CompletionItem;
@@ -21,7 +21,7 @@ export interface GBItem {
 
 export class VariableCompletion implements GBItem {
   name: string;
-  kind = CompletionItemKind.Function;
+  kind = CompletionItemKind.Variable;
   description: string;
   range: Range;
   filePath: string;
@@ -57,5 +57,34 @@ export class VariableCompletion implements GBItem {
       targetRange: this.range,
       targetUri: URI.file(this.filePath),
     };
+  }
+}
+
+export class FunctionCompletion implements GBItem {
+  name: string;
+  kind = CompletionItemKind.Function;
+  description: string;
+
+  constructor(name: string, description: string) {
+    this.name = name;
+    this.description = description;
+  }
+
+  toCompletionItem(): CompletionItem {
+    return {
+      label: this.name,
+      kind: this.kind,
+      detail: this.description,
+    };
+  }
+
+  toHoverItem(): Hover {
+    if (this.description != "") {
+      return new Hover({ language: "gibiane", value: this.description });
+    }
+  }
+
+  toDefinitionItem(): LocationLink {
+    return undefined;
   }
 }
