@@ -57,7 +57,7 @@ class Parser {
       if (!this.items.has(name)) {
         this.items.add(
           name,
-          new VariableCompletion(name, line, range, this.uri)
+          new VariableCompletion(name.toUpperCase(), line, range, this.uri)
         );
       }
       return;
@@ -74,7 +74,7 @@ class Parser {
     let items = this.items
       .getAllItems()
       .filter((e) => e.kind === CompletionItemKind.Variable);
-    const re: RegExp = /(?:"|'|\b\w+\b)/g;
+    const re: RegExp = /(?:"|'|\b\w+\b)/gi;
     let matchItem: RegExpExecArray;
     do {
       matchItem = re.exec(line);
