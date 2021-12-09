@@ -7,6 +7,12 @@ import {
 import { Providers } from "./providers/gbProviders";
 import { registerGBCommands } from "./commands/gbRegisterCommands";
 import { extname } from "path";
+import { SemanticTokensLegend } from "vscode";
+
+export const GB_LEGENDS = new SemanticTokensLegend(
+  ["variable"],
+  ["declaration"]
+);
 
 const GB_MODE: DocumentFilter = {
   language: "gibiane",
@@ -26,6 +32,14 @@ export function activate(context: ExtensionContext) {
 
   context.subscriptions.push(
     languages.registerHoverProvider(GB_MODE, providers.itemsRepository)
+  );
+
+  context.subscriptions.push(
+    languages.registerDocumentSemanticTokensProvider(
+      GB_MODE,
+      providers.itemsRepository,
+      GB_LEGENDS
+    )
   );
 
   Workspace.onDidChangeTextDocument(

@@ -9,9 +9,13 @@ import {
   Hover,
   Location,
   DefinitionLink,
+  SemanticTokens,
+  SemanticTokensBuilder,
+  CompletionItemKind,
 } from "vscode";
 import { GBItem } from "./gbItems";
 import { importBuiltins } from "./gbImportBuiltins";
+import { GB_LEGENDS } from "../gbIndex";
 
 export class FileItems {
   items: Map<string, GBItem>;
@@ -30,7 +34,7 @@ export class FileItems {
   get(id: string): GBItem {
     return this.items.get(id);
   }
-  
+
   has(id: string): boolean {
     return this.items.has(id);
   }
@@ -96,6 +100,22 @@ export class ItemsRepository implements CompletionItemProvider, Disposable {
     if (items.length > 0) {
       return items.map((e) => e.toDefinitionItem());
     }
+  }
+
+  public async provideDocumentSemanticTokens(
+    document: TextDocument
+  ): Promise<SemanticTokens> {
+    const tokensBuilder = new SemanticTokensBuilder(GB_LEGENDS);
+    let items = this.items.get(document.uri.toString()).getAllItems();
+    for (let item of items) {
+      if (item.kind === CompletionItemKind.Variable) {
+        tokensBuilder.push(item.range, "variable", ["declaration"]);
+        for (let call of item.calls) {
+          tokensBuilder.push(call.range, "variable", ["declaration"]);
+        }
+      }
+    }
+    return tokensBuilder.build();
   }
 
   public dispose() {}

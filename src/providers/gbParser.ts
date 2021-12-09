@@ -1,4 +1,4 @@
-import { Range } from "vscode";
+import { CompletionItem, CompletionItemKind, Location, Range } from "vscode";
 import { FileItems } from "./gbItemsRepository";
 import { readFileSync } from "fs";
 import { VariableCompletion } from "./gbItems";
@@ -42,8 +42,12 @@ class Parser {
   }
 
   interpLine(line: string) {
-    if (typeof line === "undefined") return;
-    // Match define
+    if (typeof line === "undefined") {
+      return;
+    }
+    this.searchForVariableInString(line, this.lineNb);
+
+    // Match variable
     let match = line.match(/^\s*(\w+)\s*=/);
     if (match) {
       let name = match[1];
@@ -58,6 +62,33 @@ class Parser {
       }
       return;
     }
+  }
+
+  searchForVariableInString(line: string, lineNb: number): void {
+    if (line === undefined || /^\s*\*/.test(line)) {
+      return;
+    }
+    let items = this.items
+      .getAllItems()
+      .filter((e) => e.kind === CompletionItemKind.Variable);
+    const re: RegExp = /\b(\w+)\b/g;
+    let matchItem: RegExpExecArray;
+    do {
+      matchItem = re.exec(line);
+      if (matchItem) {
+        let matchVariable = items.find(
+          (e) => e.name === matchItem[1].toUpperCase()
+        );
+        if (matchVariable) {
+          let range = PositiveRange(
+            lineNb,
+            matchItem.index,
+            matchItem.index + matchItem[0].length
+          );
+          matchVariable.calls.push(new Location(URI.parse(this.uri), range));
+        }
+      }
+    } while (matchItem);
   }
 }
 
