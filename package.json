@@ -35,7 +35,7 @@
     "menus": {
       "editor/title": [
         {
-          "when": "resourceLangId == gibiane && config.gibiane-vscode.afficherBouttonDExecution",
+          "when": "resourceExtname == .dgibi && config.gibiane-vscode.afficherBouttonDExecution",
           "command": "gibiane-vscode.execScript",
           "group": "navigation@1"
         }
@@ -64,7 +64,8 @@
           "Gibiane"
         ],
         "extensions": [
-          ".dgibi"
+          ".dgibi",
+          ".procedur"
         ],
         "configuration": "./GibianeConfiguration.json"
       }

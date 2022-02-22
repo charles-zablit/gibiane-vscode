@@ -1,5 +1,11 @@
 ## Notes
 
+## [1.0.1]
+
+### Added
+
+- Ajout de la prise en charge des fichiers `.procedur` (voir #5).
+
 ## [1.0.0]
 
 ### Added
