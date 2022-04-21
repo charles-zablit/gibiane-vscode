@@ -64,7 +64,8 @@
           "Gibiane"
         ],
         "extensions": [
-          ".dgibi"
+          ".dgibi",
+          ".procedur"
         ],
         "configuration": "./GibianeConfiguration.json"
       }
