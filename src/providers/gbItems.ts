@@ -66,7 +66,7 @@ export class VariableCompletion implements GBItem {
   toDefinitionItem(): LocationLink {
     return {
       targetRange: this.range,
-      targetUri: URI.parse(this.uri),
+      targetUri: URI.file(this.uri),
     };
   }
 
