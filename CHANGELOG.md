@@ -1,5 +1,13 @@
 ## Notes
 
+## [1.0.1]
+
+### Added
+
+- Ajout de la prise en charge des fichiers `.procedur` (voir #5).
+- Résolution d'un bug pour la résolution des définitions.
+- Ajout de la prise en charge de CASTEM21 (Merci à @bp208322, voir #6).
+
 ## [1.0.0]
 
 ### Added

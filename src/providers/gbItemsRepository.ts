@@ -93,7 +93,11 @@ export class ItemsRepository implements CompletionItemProvider, Disposable {
     item = this.items
       .get(document.uri.toString())
       .getAllItems()
-      .find((e) => word.toUpperCase().startsWith(e.name));
+      .find(
+        (e) =>
+          e.kind === CompletionItemKind.Function &&
+          word.toUpperCase().startsWith(e.name)
+      );
     if (item) {
       return item.toHoverItem();
     }
@@ -117,7 +121,11 @@ export class ItemsRepository implements CompletionItemProvider, Disposable {
     items = this.items
       .get(document.uri.toString())
       .getAllItems()
-      .filter((e) => word.toUpperCase().startsWith(e.name));
+      .filter(
+        (e) =>
+          e.kind === CompletionItemKind.Function &&
+          word.toUpperCase().startsWith(e.name)
+      );
     if (items.length > 0) {
       return items.map((e) => e.toDefinitionItem());
     }
