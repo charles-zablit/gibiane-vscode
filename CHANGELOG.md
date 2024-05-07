@@ -1,5 +1,11 @@
 ## Notes
 
+## [1.0.2]
+
+### Fixed
+
+- `castem23` est maintenant le réglage par défaut pour `gibiane-vscode.Commande`.
+
 ## [1.0.1]
 
 ### Added

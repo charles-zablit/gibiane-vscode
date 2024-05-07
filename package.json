@@ -2,7 +2,7 @@
   "name": "gibiane-vscode",
   "displayName": "Gibiane",
   "description": "Gibiane syntax highlighting",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publisher": "CharlesZablit",
   "main": "dist/gbIndex",
   "icon": "icon.png",
@@ -48,7 +48,7 @@
         "gibiane-vscode.Commande": {
           "type": "string",
           "description": "La commande à exécuter pour lancer le script Gibiane, SANS le chemin du fichier.",
-          "default": "castem20"
+          "default": "castem23"
         },
         "gibiane-vscode.afficherBouttonDExecution": {
           "type": "boolean",
