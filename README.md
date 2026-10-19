@@ -1,6 +1,6 @@
 # Gibiane pour VSCode
 
-![Version](https://vsmarketplacebadge.apphb.com/version/CharlesZablit.gibiane-vscode.svg) ![Installs](https://vsmarketplacebadge.apphb.com/installs-short/CharlesZablit.gibiane-vscode.svg) ![Last commit](https://img.shields.io/github/last-commit/charles-zablit/gibiane-vscode) ![Open issues](https://img.shields.io/github/issues/charles-zablit/gibiane-vscode) ![Closed issues](https://img.shields.io/github/issues-closed/charles-zablit/gibiane-vscode) ![Size](https://img.shields.io/github/repo-size/charles-zablit/gibiane-vscode) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/charles-zablit/gibiane-vscode/Deploy%20Extension)
+![Version](https://img.shields.io/visual-studio-marketplace/v/CharlesZablit.gibiane-vscode) ![Installs](https://img.shields.io/visual-studio-marketplace/i/CharlesZablit.gibiane-vscode) ![Last commit](https://img.shields.io/github/last-commit/charles-zablit/gibiane-vscode) ![Open issues](https://img.shields.io/github/issues/charles-zablit/gibiane-vscode) ![Closed issues](https://img.shields.io/github/issues-closed/charles-zablit/gibiane-vscode) ![Size](https://img.shields.io/github/repo-size/charles-zablit/gibiane-vscode) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/charles-zablit/gibiane-vscode/Deploy%20Extension)
 
 ![Example Syntax](https://raw.githubusercontent.com/charles-zablit/gibiane-vscode/master/images/example-1.png)
 
