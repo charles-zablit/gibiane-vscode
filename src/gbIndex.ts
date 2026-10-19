@@ -69,10 +69,30 @@ export function activate(context: ExtensionContext) {
   );
 
   for (let document of Workspace.textDocuments) {
-    if (extname(document.uri.fsPath) == ".dgibi") {
+    if (
+      extname(document.uri.fsPath) == ".dgibi" ||
+      extname(document.uri.fsPath) == ".procedur"
+    ) {
       providers.handle_new_document(document);
     }
   }
+
+  Workspace.onDidChangeConfiguration(
+    (e) => {
+      if (e.affectsConfiguration("gibiane-vscode.language")) {
+        for (let document of Workspace.textDocuments) {
+          if (
+            extname(document.uri.fsPath) == ".dgibi" ||
+            extname(document.uri.fsPath) == ".procedur"
+          ) {
+            providers.handle_new_document(document);
+          }
+        }
+      }
+    },
+    null,
+    context.subscriptions
+  );
 
   //Register the commands
   registerGBCommands(context);

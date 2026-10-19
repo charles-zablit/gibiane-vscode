@@ -1,1 +1,4 @@
-﻿selenium>=4.1.0
+# Webscraper dependencies
+# Note: parser.py supports pure Python 3 standard library (zero required installs).
+# For running tests:
+pytest>=7.0.0

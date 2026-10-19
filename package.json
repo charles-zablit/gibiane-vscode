@@ -54,6 +54,16 @@
           "type": "boolean",
           "description": "Afficher le bouton d'exécution des scripts Gibiane ou non.",
           "default": true
+        },
+        "gibiane-vscode.language": {
+          "type": "string",
+          "enum": ["fr", "en"],
+          "enumDescriptions": [
+            "Français",
+            "English"
+          ],
+          "description": "Langue de la documentation de Cast3M (Cast3M documentation language).",
+          "default": "fr"
         }
       }
     },

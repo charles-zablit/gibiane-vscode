@@ -9,3 +9,5 @@ chromedriver.exe
 chromedriver
 dist/
 .vscode/
+__pycache__/
+*.py[cod]
